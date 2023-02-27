@@ -6,44 +6,41 @@ import { useState } from "react";
 
 export const App = () => {
 
-    const [todoItems, setTodoItems] = useState([
-        { item: "가", completed: "true" },
-        { item: "나", completed: "false" },
-        { item: "다", completed: "true" },
-    ]);
+    let [todoItems, setTodoItems] = useState([]);
     
     const addOneItem = (todoItem) => {
         const obj = {
             completed: false,
             item: todoItem
         }
-        localStorage.setItem(todoItem.item, JSON.stringify(obj));
-        todoItems.value.push(obj);
+        localStorage.setItem(todoItem, JSON.stringify(obj));
+        todoItems.push(obj);
+        console.log(todoItem)
     }
     const removeOneItem = (todoItem, index) => {
         localStorage.removeItem(todoItem.item);
         todoItems.splice(index, 1);
     }
-    const toggleOneItme = (todoItem, index) => {
+    const toggleOneItem = (todoItem, index) => {
         todoItems[index].completed = !todoItems[index].completed;
         localStorage.removeItem(todoItem.item);
         localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     }
     const clearAllItems = () => {
         localStorage.clear();
-        this.todoItems = [];
+        todoItems = [];
     }
 
 return (
     <>
         <div>
             <TodoHeader />
-            <TodoInput />
-            <TodoList todoItems={todoItems} />
+            <TodoInput onInput={addOneItem}/>
+            <TodoList todoItems={todoItems} removeTodo={removeOneItem} />
             <TodoFooter />
         </div>
 
-        <style jsx>{`
+        <style jsx="true">{`
         body {
             text-align: center;
             background-color: #F6F6F6;

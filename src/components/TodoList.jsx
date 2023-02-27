@@ -5,13 +5,16 @@ export const TodoList = (props) => {
     const [ todoItems, setTodoItems ] = useState(props.todoItems);
     // console.log(todoItems) 
     // todoItems.map(console.log)
+    const removeTodo = (todoItem, index) => {
+        props.removeTodo(todoItem, index);
+    }
     return( 
     <>
     <div>
         <transition-group name="list" tag="ul">
             {
                 todoItems.map(o => {
-                    return <div> 
+                    return <div key={o.item}> 
                         <li className="shadow">
                             <i className="checkBtn">
                                 <FaCheck />
@@ -20,7 +23,6 @@ export const TodoList = (props) => {
                             <i className="removeBtn">
                                 <FaTrashAlt />
                             </i>
-                            
                         </li>
                     </div>
                 })
@@ -28,7 +30,7 @@ export const TodoList = (props) => {
         </transition-group>
     </div>
 
-    <style jsx>{`
+    <style jsx="true">{`
     ul {
         list-style-type: none;
         padding-left: 0px;

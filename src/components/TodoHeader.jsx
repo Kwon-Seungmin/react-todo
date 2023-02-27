@@ -6,7 +6,7 @@ export const TodoHeader = () => {
             <h1>TODO it!</h1>
         </div>
 
-        <style jsx>{`
+        <style jsx="true">{`
         h1 {
             color: #2f3b52;
             font-weight: 900;

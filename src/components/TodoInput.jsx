@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa"
 
-export const TodoInput = () => {
-    const [ newTodoItem, setNewTodoItem ] = useState();
-    const [ shoewModal, setShowModal ] = useState(false);
+export const TodoInput = (props) => {
+    let [ newTodoItem, setNewTodoItem ] = useState();
+    let [ showModal, setShowModal ] = useState(false);
 
     const clearInput = () => {
         newTodoItem = '';
@@ -12,10 +12,10 @@ export const TodoInput = () => {
     const addTodo = () => {
         console.log(newTodoItem)
         if (newTodoItem !== '') {
-            console.log(newTodoItem)
+            props.onInput(newTodoItem);
             clearInput();
         }else {
-            setShowModal(!shoewModal);
+            setShowModal(!showModal);
         }
     }
 
@@ -32,7 +32,7 @@ export const TodoInput = () => {
     return(
     <>
     <div className="inputBox shadow">
-        <input type="text" value={newTodoItem} onChange={handleChange} onKeyUp={onKeyUp}/>
+        <input type="text" value={newTodoItem || ""} onChange={handleChange} onKeyUp={onKeyUp} />
         <span className="addContainer" onClick={addTodo}>
             <FaPlus className="addBtn"/>
         </span>
@@ -47,7 +47,7 @@ export const TodoInput = () => {
     </div>
     
 
-    <style jsx>{`
+    <style jsx="true">{`
     input:focus {
             outline: none;
     }
